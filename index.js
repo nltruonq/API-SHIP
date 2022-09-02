@@ -9,6 +9,10 @@ const userRoute = require('./routers/user');
 
 const app = express();
 
+app.use(cors());
+app.use(cookieParser());
+app.use(express.json());
+
 const http = require('http');
 const { Server } = require('socket.io');
 const server = http.createServer(app);
@@ -91,12 +95,6 @@ io.on('connection', (socket) => {
 mongoose.connect(process.env.MONGODB_URL, () => {
     console.log('Mongodb is connected');
 });
-
-app.use(cors());
-app.use(cookieParser());
-app.use(express.json());
-
-//routers
 
 app.use('/v1/auth', authRoute);
 app.use('/v1/user', userRoute);
