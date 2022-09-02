@@ -44,8 +44,9 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: process.env.HOST,
+        origin: process.env.HOST || 'http://localhost:3000',
         method: ['GET', 'POST'],
+        credentials: true,
     },
 });
 
@@ -125,14 +126,6 @@ app.use('/v1/auth', authRoute);
 app.use('/v1/user', userRoute);
 
 const PORT = process.env.PORT || 5000;
-
-server.use(
-    cors({
-        origin: '*',
-        credentials: true,
-        optionSuccessStatus: 200,
-    }),
-);
 
 server.listen(PORT, () => {
     console.log('Server is running on port:', PORT);
