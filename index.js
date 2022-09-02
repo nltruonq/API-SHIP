@@ -9,7 +9,13 @@ const userRoute = require('./routers/user');
 
 const app = express();
 
-app.use(cors());
+app.use(
+    cors({
+        origin: '*',
+        credentials: true,
+        optionSuccessStatus: 200,
+    }),
+);
 app.use(cookieParser());
 app.use(express.json());
 
