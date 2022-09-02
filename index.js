@@ -12,7 +12,7 @@ const app = express();
 // Add headers before the routes are defined
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', process.env.HOST || 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', process.env.HOST);
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -44,7 +44,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: process.env.HOST || 'http://localhost:3000',
+        origin: process.env.HOST,
         method: ['GET', 'POST'],
         credentials: true,
     },
