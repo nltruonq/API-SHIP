@@ -30,7 +30,7 @@ app.use(function (req, res, next) {
 
 app.use(
     cors({
-        origin: '*',
+        origin: process.env.HOST,
         credentials: true,
         optionSuccessStatus: 200,
     }),
