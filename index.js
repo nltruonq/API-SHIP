@@ -3,6 +3,7 @@ const cors = require('cors');
 const dotenv = require('dotenv/config');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
 const authRoute = require('./routers/auth');
 const userRoute = require('./routers/user');
@@ -35,6 +36,12 @@ app.use(
         optionSuccessStatus: 200,
     }),
 );
+app.use(
+    bodyParser.urlencoded({
+        extended: true,
+    }),
+);
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.json());
 
@@ -120,6 +127,10 @@ io.on('connection', (socket) => {
 
 mongoose.connect(process.env.MONGODB_URL, () => {
     console.log('Mongodb is connected');
+});
+
+mongoose.connection.on('error', function (err) {
+    console.log(err);
 });
 
 app.use('/v1/auth', authRoute);
